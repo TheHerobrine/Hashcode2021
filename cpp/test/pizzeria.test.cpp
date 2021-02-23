@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include "../src/pizzeria/Pizzeria.h"
 
-TEST(example, add)
+TEST(pizzeria, load)
 {
     Pizzeria* pizzeria = new Pizzeria();
     pizzeria->LoadFromFile("a_example.in");
