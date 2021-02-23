@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.17)
-project(hashcode)
+add_executable(shell-app
+        main.cpp
+        pizzeria/Pizzeria.h)
 
-set(CMAKE_CXX_STANDARD 20)
-include_directories(../googletest/googletest/include)
-
-add_executable(hashcode main.cpp)
+include_directories(
+        ${CMAKE_SOURCE_DIR}/include
+)
