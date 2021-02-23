@@ -1,4 +1,5 @@
 export interface IPizzaType {
+    index: number,
     ingredients: Array<string>
 }
 

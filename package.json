@@ -18,7 +18,9 @@
     "homepage": "https://github.com/TheHerobrine/Hashcode2021#readme",
     "dependencies": {
         "@types/jest": "^26.0.20",
+        "@types/lodash": "^4.14.168",
         "jest": "^26.6.3",
+        "lodash": "^4.17.21",
         "ts-jest": "^26.5.1",
         "ts-node": "^9.1.1",
         "type-fest": "^0.11.0",
