@@ -11,5 +11,4 @@ export interface IPizzeria {
     pizzas: Array<IPizzaType>
 }
 
-export interface IBufferLines extends Array<string> {
-}
+export type IBufferLines = Array<string>;
