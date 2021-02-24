@@ -2,6 +2,7 @@ add_executable(
         cpp-test
         main.cpp
         pizzeria.test.cpp
+        solution.test.cpp
 )
 
 target_include_directories(

@@ -1,6 +1,8 @@
 add_executable(shell-app
         main.cpp
-        pizzeria/Pizzeria.h)
+        pizzeria/Pizzeria.h
+        solution/Solution.h
+        )
 
 include_directories(
         ${CMAKE_SOURCE_DIR}/include
