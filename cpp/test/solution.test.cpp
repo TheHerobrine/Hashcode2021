@@ -51,5 +51,5 @@ TEST(solution, score) {
         solution.deliveries.push_back(delivery);
     }
 
-    ASSERT_EQ(solution.getScore(), 65);
+    EXPECT_EQ(solution.getScore(), 65);
 }

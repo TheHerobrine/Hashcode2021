@@ -7,11 +7,11 @@ TEST(solver, pizzeriaInstance) {
 
     PizzeriaInstance pizzeriaInstance(pizzeria);
 
-    ASSERT_EQ(pizzeriaInstance.remainingTeam[2], pizzeria.teamsNumber[2]);
-    ASSERT_EQ(pizzeriaInstance.remainingTeam[3], pizzeria.teamsNumber[3]);
-    ASSERT_EQ(pizzeriaInstance.remainingTeam[4], pizzeria.teamsNumber[4]);
+    EXPECT_EQ(pizzeriaInstance.remainingTeam[2], pizzeria.teamsNumber[2]);
+    EXPECT_EQ(pizzeriaInstance.remainingTeam[3], pizzeria.teamsNumber[3]);
+    EXPECT_EQ(pizzeriaInstance.remainingTeam[4], pizzeria.teamsNumber[4]);
 
-    ASSERT_EQ(pizzeriaInstance.availablePizzas[1]->index, pizzeria.pizzas[1]->index);
+    EXPECT_EQ(pizzeriaInstance.availablePizzas[1]->index, pizzeria.pizzas[1]->index);
 }
 
 TEST(solver, solve_a) {
