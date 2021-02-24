@@ -13,7 +13,7 @@ namespace fs = std::filesystem;
 struct Solution {
     vector<Delivery> deliveries;
 
-    int getScore() {
+    int getScore() const {
         int score = 0;
 
         for (auto &delivery : deliveries) {
@@ -33,7 +33,7 @@ struct Solution {
         return score;
     }
 
-    void writeSolution(string fileName) {
+    void writeSolution(string fileName) const {
         const string outputPath = "../../output/";
 
         fs::create_directory(outputPath);

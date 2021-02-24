@@ -3,6 +3,7 @@ add_executable(
         main.cpp
         pizzeria.test.cpp
         solution.test.cpp
+        hugo/solver.test.cpp
 )
 
 target_include_directories(

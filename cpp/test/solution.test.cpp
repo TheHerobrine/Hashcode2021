@@ -11,21 +11,21 @@ TEST(solution, write) {
     {
         Delivery delivery;
         delivery.teamSize = 2;
-        delivery.pizzas.push_back(&pizzeria.pizzas[1]);
-        delivery.pizzas.push_back(&pizzeria.pizzas[4]);
+        delivery.pizzas.push_back(pizzeria.pizzas[1]);
+        delivery.pizzas.push_back(pizzeria.pizzas[4]);
         solution.deliveries.push_back(delivery);
     }
 
     {
         Delivery delivery;
         delivery.teamSize = 3;
-        delivery.pizzas.push_back(&pizzeria.pizzas[0]);
-        delivery.pizzas.push_back(&pizzeria.pizzas[2]);
-        delivery.pizzas.push_back(&pizzeria.pizzas[3]);
+        delivery.pizzas.push_back(pizzeria.pizzas[0]);
+        delivery.pizzas.push_back(pizzeria.pizzas[2]);
+        delivery.pizzas.push_back(pizzeria.pizzas[3]);
         solution.deliveries.push_back(delivery);
     }
 
-    solution.writeSolution("toast.out");
+    solution.writeSolution("a_example_test.out");
 }
 
 TEST(solution, score) {
@@ -37,17 +37,17 @@ TEST(solution, score) {
     {
         Delivery delivery;
         delivery.teamSize = 2;
-        delivery.pizzas.push_back(&pizzeria.pizzas[1]);
-        delivery.pizzas.push_back(&pizzeria.pizzas[4]);
+        delivery.pizzas.push_back(pizzeria.pizzas[1]);
+        delivery.pizzas.push_back(pizzeria.pizzas[4]);
         solution.deliveries.push_back(delivery);
     }
 
     {
         Delivery delivery;
         delivery.teamSize = 3;
-        delivery.pizzas.push_back(&pizzeria.pizzas[0]);
-        delivery.pizzas.push_back(&pizzeria.pizzas[2]);
-        delivery.pizzas.push_back(&pizzeria.pizzas[3]);
+        delivery.pizzas.push_back(pizzeria.pizzas[0]);
+        delivery.pizzas.push_back(pizzeria.pizzas[2]);
+        delivery.pizzas.push_back(pizzeria.pizzas[3]);
         solution.deliveries.push_back(delivery);
     }
 

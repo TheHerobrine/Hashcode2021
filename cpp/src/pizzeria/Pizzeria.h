@@ -11,7 +11,7 @@ using namespace std;
 
 struct Pizzeria {
     int teamsNumber[5];
-    vector<Pizza> pizzas;
+    vector<Pizza*> pizzas;
     IngredientDatabase ingredientDatabase;
 
     void LoadFromFile(const string &FileName) {
@@ -26,8 +26,8 @@ struct Pizzeria {
 
         for (int i=0; i<pizzaNumber; i++)
         {
-            Pizza pizza;
-            pizza.index = i;
+            Pizza* pizza = new Pizza();
+            pizza->index = i;
             inputFile >> ingredientsNumber;
 
             for (int j=0; j<ingredientsNumber; j++)
@@ -36,7 +36,7 @@ struct Pizzeria {
                 inputFile >> ingredientName;
 
                 Ingredient* ingredient = ingredientDatabase.getIngredient(ingredientName);
-                pizza.ingredients.push_back(ingredient);
+                pizza->ingredients.push_back(ingredient);
             }
 
             pizzas.push_back(pizza);
