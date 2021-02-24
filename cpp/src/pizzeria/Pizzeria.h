@@ -14,9 +14,10 @@ struct Pizzeria {
     vector<Pizza*> pizzas;
     IngredientDatabase ingredientDatabase;
 
-    void LoadFromFile(const string &FileName) {
+    void LoadFromFile(const string &fileName) {
+        cout << "Loading file " << fileName << "..." << endl;
         string line;
-        ifstream inputFile("../../input/" + FileName);
+        ifstream inputFile("../../input/" + fileName);
 
         int pizzaNumber = 0;
         int ingredientsNumber = 0;
@@ -43,5 +44,6 @@ struct Pizzeria {
         }
 
         inputFile.close();
+        cout << "File loaded!" << endl;
     }
 };

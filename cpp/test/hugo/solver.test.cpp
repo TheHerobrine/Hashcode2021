@@ -18,28 +18,33 @@ TEST(solver, solve_a) {
     Solver solver;
     solver.Load("a_example.in");
     solver.Solve();
+    solver.savedSolution.writeSolution("a_example.out");
 }
 
 TEST(solver, solve_b) {
     Solver solver;
     solver.Load("b_little_bit_of_everything.in");
     solver.Solve();
+    solver.savedSolution.writeSolution("b_little_bit_of_everything.out");
 }
 
 TEST(solver, solve_c) {
     Solver solver;
     solver.Load("c_many_ingredients.in");
     solver.Solve();
+    solver.savedSolution.writeSolution("c_many_ingredients.out");
 }
 
 TEST(solver, solve_d) {
     Solver solver;
     solver.Load("d_many_pizzas.in");
     solver.Solve();
+    solver.savedSolution.writeSolution("d_many_pizzas.out");
 }
 
 TEST(solver, solve_e) {
     Solver solver;
     solver.Load("e_many_teams.in");
     solver.Solve();
+    solver.savedSolution.writeSolution("e_many_teams.out");
 }

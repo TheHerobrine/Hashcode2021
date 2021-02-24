@@ -12,6 +12,7 @@ using namespace std;
 
 struct Solver {
     Pizzeria pizzeria;
+    Solution savedSolution;
 
     void Load(string fileName) {
         pizzeria.LoadFromFile(fileName);
@@ -20,21 +21,25 @@ struct Solver {
     void Solve() {
         Solution bestSolution;
         int bestScore = 0;
-        int tryNumber = 10;
+        int tryNumber = 100;
 
-        for(int i=0; i<tryNumber; i++)
-        {
+        for (int i = 0; i < tryNumber; i++) {
+            if (i%10 == 0)
+            {
+                cout << "Generating random solution (" << i << "/" << tryNumber << ")" << endl;
+            }
+
             const Solution solution = generateRandomSolution();
             const int score = solution.getScore();
 
-            if(score > bestScore)
-            {
+            if (score > bestScore) {
                 bestScore = score;
-                bestSolution = bestSolution;
+                bestSolution = solution;
             }
         }
 
         cout << "Best score found: " << bestScore << endl;
+        savedSolution = bestSolution;
     }
 
     Solution generateRandomSolution() {
@@ -46,13 +51,12 @@ struct Solver {
             const int maxRandom = min(int(pizzeriaInstance.availablePizzas.size()) - 2, 2) + 1;
             const int teamSize = rand() % maxRandom + 2;
 
-            if (pizzeriaInstance.remainingTeam[teamSize] > 0)
-            {
+            if (pizzeriaInstance.remainingTeam[teamSize] > 0) {
+                pizzeriaInstance.remainingTeam[teamSize]--;
                 Delivery delivery;
                 delivery.teamSize = teamSize;
 
-                for (int i=0; i<teamSize; i++)
-                {
+                for (int i = 0; i < teamSize; i++) {
                     delivery.pizzas.push_back(pizzeriaInstance.availablePizzas.back());
                     pizzeriaInstance.availablePizzas.pop_back();
                 }

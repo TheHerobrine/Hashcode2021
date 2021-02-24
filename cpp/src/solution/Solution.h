@@ -34,6 +34,7 @@ struct Solution {
     }
 
     void writeSolution(string fileName) const {
+        cout << "Saving file " << fileName << "..." << endl;
         const string outputPath = "../../output/";
 
         fs::create_directory(outputPath);
@@ -55,5 +56,6 @@ struct Solution {
         }
 
         outputFile.close();
+        cout << "File saved!" << endl;
     }
 };
