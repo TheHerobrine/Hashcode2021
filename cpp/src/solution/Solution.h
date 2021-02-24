@@ -15,19 +15,24 @@ struct Solution {
 
     int getScore() const {
         int score = 0;
+        int deliveryNumber = 0;
 
         for (auto &delivery : deliveries) {
+            deliveryNumber++;
 
-            set<int> ingredientsIndex;
+            int ingredientsNumber = 0;
 
             for (auto &pizza : delivery.pizzas) {
                 for (auto &ingredient : pizza->ingredients) {
-                    ingredientsIndex.insert(ingredient->index);
+                    if (ingredient->deliveryUsed != deliveryNumber)
+                    {
+                        ingredient->deliveryUsed = deliveryNumber;
+                        ingredientsNumber++;
+                    }
                 }
             }
 
-            const int numberOfIngredients = ingredientsIndex.size();
-            score += numberOfIngredients * numberOfIngredients;
+            score += ingredientsNumber * ingredientsNumber;
         }
 
         return score;

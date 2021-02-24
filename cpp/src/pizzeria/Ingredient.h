@@ -7,6 +7,7 @@ using namespace std;
 struct Ingredient {
     int index;
     string name;
+    int deliveryUsed;
 };
 
 struct IngredientDatabase {
