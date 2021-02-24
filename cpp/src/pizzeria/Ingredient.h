@@ -11,18 +11,16 @@ struct Ingredient {
 };
 
 struct IngredientDatabase {
-    vector<Ingredient*> ingredients;
+    map<string, Ingredient *> ingredients;
+    int currentIndex = 0;
 
     Ingredient *getIngredient(const string &ingredientName) {
-        for (auto &ingredient : ingredients) {
-            if (ingredient->name == ingredientName) {
-                return ingredient;
-            }
+        if (ingredients.contains(ingredientName)) {
+            return ingredients[ingredientName];
         }
-        const int nextIndex = ingredients.size();
-        Ingredient* ingredient = new Ingredient{nextIndex, ingredientName};
 
-        ingredients.push_back(ingredient);
-        return ingredients.back();
+        Ingredient *ingredient = new Ingredient{currentIndex++, ingredientName};
+        ingredients[ingredientName] = ingredient;
+        return ingredients[ingredientName];
     }
 };
