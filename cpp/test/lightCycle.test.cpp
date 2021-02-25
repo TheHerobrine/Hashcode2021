@@ -1,13 +1,12 @@
 #include <gtest/gtest.h>
-#include "../src/world/World.h"
-#include "../src/solution/Solution.h"
-#include "./Lib.h"
+#include "../src/solution/LightCycle.h"
 
-
-
-TEST(solution, save) {
+TEST(lightCycle, street) {
     World world;
     world.LoadFromFile("a.txt");
+
+    LightCycle lightCycle;
+
 
     Solution solution = buildSampleSolution(&world);
 

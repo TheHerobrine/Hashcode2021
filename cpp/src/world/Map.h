@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <map>
 
 #include "Intersection.h"
 #include "Street.h"
@@ -11,5 +12,5 @@ using namespace std;
 
 struct Map {
     vector<Intersection*> intersections;
-    map<string, Street*> streets;
+    vector<Street*> streets;
 };

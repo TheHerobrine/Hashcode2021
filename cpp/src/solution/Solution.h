@@ -20,9 +20,10 @@ struct Solution {
     }
 
     int getScore() {
-        WorldSimulation simulation(world, lightCycles);
+        WorldSimulation simulation(world, &lightCycles);
+        simulation.Launch();
 
-        return 0;
+        return simulation.score;
     }
 
     void writeSolution(string fileName) const {

@@ -27,34 +27,41 @@ struct SimulatedCar {
     Car *car;
     Position position;
     int pathIndex = 0;
+    bool active = true;
 
     void Tick() {
         if (position.timeToEnd > 0) {
             position.timeToEnd--;
 
             if (position.timeToEnd == 0) {
-                position.simulatedStreet->carQueue.push(this);
+                if (!HasArrived()) {
+                    position.simulatedStreet->carQueue.push(this);
+                }
             }
         }
+    }
+
+    bool HasArrived() {
+        return (position.timeToEnd == 0) && (pathIndex == car->path.size() - 1);
     }
 };
 
 struct WorldSimulation {
     World *world;
-    LightCycle *lightCycle;
-    int score;
+    vector<LightCycle> *lightCycles;
+    int score = 0;
     int elapsedTime = 0;
 
     vector<SimulatedCar *> simulatedCars;
     vector<SimulatedStreet *> simulatedStreets;
 
-    WorldSimulation(World *world, vector<LightCycle> &lightCycles) {
+    WorldSimulation(World *world, vector<LightCycle> *lightCycles) {
         this->world = world;
-        this->lightCycle = lightCycle;
+        this->lightCycles = lightCycles;
 
         for (auto &street: world->map.streets) {
             SimulatedStreet *simulatedStreet = new SimulatedStreet();
-            simulatedStreet->street = street.second;
+            simulatedStreet->street = street;
             simulatedStreets.push_back(simulatedStreet);
         }
 
@@ -72,12 +79,38 @@ struct WorldSimulation {
         }
     }
 
-    void Tick() {
-        for (auto &intersection: world->map.intersections) {
+    void Launch() {
+        for (int i = 0; i < world->duration; i++) {
+            Tick();
+        }
+    }
 
+    void Tick() {
+        for (auto &lightCycle: *lightCycles) {
+            Street *street = lightCycle.getActivatedStreet(elapsedTime);
+
+            if (!simulatedStreets[street->index]->carQueue.size()) {
+                continue;
+            }
+
+            SimulatedCar *simulatedCar = simulatedStreets[street->index]->carQueue.back();
+            simulatedStreets[street->index]->carQueue.pop();
+
+            simulatedCar->pathIndex++;
+            simulatedCar->position.simulatedStreet = simulatedStreets[simulatedCar->car->path[simulatedCar->pathIndex]->index];
+            simulatedCar->position.timeToEnd = simulatedCar->car->path[simulatedCar->pathIndex]->length;
         }
 
         for (auto &simulatedCar: simulatedCars) {
+            if (!simulatedCar->active) {
+                continue;
+            }
+
+            if (simulatedCar->HasArrived()) {
+                simulatedCar->active = false;
+                score += world->bonusPoints + world->duration - elapsedTime;
+            }
+
             simulatedCar->Tick();
         }
 

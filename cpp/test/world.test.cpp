@@ -9,9 +9,9 @@ TEST(world, load) {
     EXPECT_EQ(world.map.streets.size(), 5);
     EXPECT_EQ(world.map.intersections.size(), 4);
 
-    EXPECT_EQ(world.cars[0]->path[0], world.map.streets["rue-de-londres"]);
-    EXPECT_EQ(world.cars[0]->path[1], world.map.streets["rue-d-amsterdam"]);
+    EXPECT_EQ(world.cars[0]->path[0], world.map.streets[0]);
+    EXPECT_EQ(world.cars[0]->path[1], world.map.streets[1]);
 
-    EXPECT_EQ(world.map.intersections[0]->inStreets[0], world.map.streets["rue-de-londres"]);
-    EXPECT_EQ(world.map.intersections[0]->outStreets[0], world.map.streets["rue-d-amsterdam"]);
+    EXPECT_EQ(world.map.intersections[0]->inStreets[0], world.map.streets[0]);
+    EXPECT_EQ(world.map.intersections[0]->outStreets[0], world.map.streets[1]);
 }

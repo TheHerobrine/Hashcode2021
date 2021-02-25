@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <map>
 
 #include "Intersection.h"
 #include "Map.h"
@@ -12,6 +13,7 @@ using namespace std;
 
 struct World {
     int duration;
+    int bonusPoints;
     Map map;
     vector<Car*> cars;
 
@@ -22,7 +24,6 @@ struct World {
         int intersectionsNumber;
         int streetsNumber;
         int carsNumber;
-        int bonusPoints;
 
         inputFile >> duration >> intersectionsNumber >> streetsNumber >> carsNumber >> bonusPoints;
 
@@ -31,6 +32,8 @@ struct World {
             intersection->index = i;
             map.intersections.push_back(intersection);
         }
+
+        ::map<string, int> streetsDictionary;
 
         for (int i = 0; i < streetsNumber; i++) {
             int from, to;
@@ -49,7 +52,8 @@ struct World {
             map.intersections[from]->outStreets.push_back(street);
             map.intersections[to]->inStreets.push_back(street);
 
-            map.streets[streetName] = street;
+            map.streets.push_back(street);
+            streetsDictionary[streetName] = i;
         }
 
         for (int i=0; i <carsNumber; i++)
@@ -62,7 +66,7 @@ struct World {
             for (int j=0; j<pathLength; j++)
             {
                 inputFile >> streetName;
-                car->path.push_back(map.streets[streetName]);
+                car->path.push_back(map.streets[streetsDictionary[streetName]]);
             }
 
             cars.push_back(car);
