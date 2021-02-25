@@ -15,7 +15,7 @@ struct World {
     int duration;
     int bonusPoints;
     Map map;
-    vector<Car*> cars;
+    vector<Car *> cars;
 
     void LoadFromFile(const string &fileName) {
         cout << "Loading file " << fileName << "..." << endl;
@@ -56,15 +56,15 @@ struct World {
             streetsDictionary[streetName] = i;
         }
 
-        for (int i=0; i <carsNumber; i++)
-        {
+        for (int i = 0; i < carsNumber; i++) {
             int pathLength;
             string streetName;
             inputFile >> pathLength;
-            Car* car = new Car();
+            Car *car = new Car();
 
-            for (int j=0; j<pathLength; j++)
-            {
+            car->index = i;
+
+            for (int j = 0; j < pathLength; j++) {
                 inputFile >> streetName;
                 car->path.push_back(map.streets[streetsDictionary[streetName]]);
             }

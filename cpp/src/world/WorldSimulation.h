@@ -35,6 +35,11 @@ struct SimulatedCar {
 
             if (position.timeToEnd == 0) {
                 if (!HasArrived()) {
+                    if (car->index == 954)
+                    {
+                        cout << "toast" << endl;
+                    }
+
                     position.simulatedStreet->carQueue.push(this);
                 }
             }
@@ -42,7 +47,7 @@ struct SimulatedCar {
     }
 
     bool HasArrived() {
-        return (position.timeToEnd == 0) && (pathIndex == car->path.size() - 1);
+        return (position.timeToEnd == 0) && (pathIndex >= car->path.size() - 1);
     }
 };
 
@@ -93,14 +98,18 @@ struct WorldSimulation {
                 continue;
             }
 
-            SimulatedCar *simulatedCar = simulatedStreets[street->index]->carQueue.back();
+            SimulatedCar *simulatedCar = simulatedStreets[street->index]->carQueue.front();
+            if (simulatedCar->car->index == 954)
+            {
+                cout << "toast" << endl;
+            }
             simulatedStreets[street->index]->carQueue.pop();
 
-            simulatedCar->pathIndex++;
-            if (simulatedCar->pathIndex >= simulatedCar->car->path.size())
-            {
+            if (simulatedCar->HasArrived()) {
                 continue;
             }
+
+            simulatedCar->pathIndex++;
             simulatedCar->position.simulatedStreet = simulatedStreets[simulatedCar->car->path[simulatedCar->pathIndex]->index];
             simulatedCar->position.timeToEnd = simulatedCar->car->path[simulatedCar->pathIndex]->length;
         }
@@ -113,6 +122,7 @@ struct WorldSimulation {
             if (simulatedCar->HasArrived()) {
                 simulatedCar->active = false;
                 score += world->bonusPoints + world->duration - elapsedTime;
+                continue;
             }
 
             simulatedCar->Tick();

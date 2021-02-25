@@ -10,5 +10,6 @@
 using namespace std;
 
 struct Car {
+    int index;
     vector<Street*> path;
 };

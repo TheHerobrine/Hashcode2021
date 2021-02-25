@@ -12,9 +12,8 @@ void solve(string solutionName)
 
 
 TEST(solver, solve) {
-    solve("b");
     //solve("a");
-    //solve("b");
+    solve("b");
     //solve("c");
     //solve("d");
     //solve("e");

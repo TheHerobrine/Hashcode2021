@@ -69,7 +69,7 @@ struct Solver {
 
             for (auto &street: intersection->inStreets) {
                 LightTime lightTime{};
-                lightTime.duration = rand() % 5 + 1;
+                lightTime.duration = 3;
                 lightTime.street = street;
                 lightCycle.lightTimes.push_back(lightTime);
             }
