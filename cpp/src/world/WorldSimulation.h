@@ -6,7 +6,7 @@
 #include <queue>
 
 #include "World.h"
-#include "Solution.h"
+#include "../solution/Solution.h"
 
 using namespace std;
 
