@@ -1,29 +1,26 @@
 #include <gtest/gtest.h>
-/*
+
 #include "../../src/solver/hugo/Solver.h"
 
-TEST(solver, pizzeriaInstance) {
-    Pizzeria pizzeria;
-    pizzeria.LoadFromFile("a.in");
-
-    PizzeriaInstance pizzeriaInstance(pizzeria);
-
-    EXPECT_EQ(pizzeriaInstance.remainingTeam[2], pizzeria.teamsNumber[2]);
-    EXPECT_EQ(pizzeriaInstance.remainingTeam[3], pizzeria.teamsNumber[3]);
-    EXPECT_EQ(pizzeriaInstance.remainingTeam[4], pizzeria.teamsNumber[4]);
-
-    EXPECT_EQ(pizzeriaInstance.availablePizzas[1]->index, pizzeria.pizzas[1]->index);
+void solve(string solutionName)
+{
+    Solver solver;
+    solver.Load(solutionName + ".txt");
+    solver.Solve();
+    solver.savedSolution->writeSolution(solutionName + ".out");
 }
+
 
 TEST(solver, solve) {
-    string solutionName = "b";
-
-    Solver solver;
-    solver.Load(solutionName + ".in");
-    solver.Solve();
-    solver.savedSolution.writeSolution(solutionName + ".out");
+    solve("a");
+    solve("b");
+    solve("c");
+    solve("d");
+    solve("e");
+    solve("f");
 }
 
+/*
 TEST(solver, improve) {
     string solutionName = "e";
 

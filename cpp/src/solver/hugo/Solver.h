@@ -1,27 +1,26 @@
 #pragma once
-/*
+
 #include <iostream>
 #include <algorithm>
 
-#include "../../pizzeria/Pizzeria.h"
 #include "../../solution/Solution.h"
-#include "./Lib.h"
-#include "./Utils.h"
+//#include "./Lib.h"
+//#include "./Utils.h"
 
 using namespace std;
 
 struct Solver {
-    Pizzeria pizzeria;
-    Solution savedSolution;
+    World world;
+    Solution *savedSolution;
 
     void Load(string fileName) {
-        pizzeria.LoadFromFile(fileName);
+        world.LoadFromFile(fileName);
     }
 
+/*
     void LoadSolution(string fileName) {
         savedSolution.LoadFromFile(fileName, pizzeria);
     }
-
     void Improve(string fileName) {
         int currentScore = savedSolution.getScore();
 
@@ -38,54 +37,51 @@ struct Solver {
             }
         }
     }
+*/
 
     void Solve() {
-        Solution bestSolution;
+        savedSolution = generateRandomSolution();
+        return;
         int bestScore = 0;
-        int tryNumber = 1000;
+        int tryNumber = 10;
 
         for (int i = 0; i < tryNumber; i++) {
             if (i % 10 == 0) {
                 cout << "Generating random solution (" << i << "/" << tryNumber << ")" << endl;
             }
 
-            const Solution solution = generateRandomSolution();
-            const int score = solution.getScore();
+            Solution *solution = generateRandomSolution();
+            int score = solution->getScore();
 
             if (score > bestScore) {
                 bestScore = score;
-                bestSolution = solution;
+                delete savedSolution;
+                savedSolution = solution;
+            } else {
+                delete solution;
             }
         }
 
         cout << "Best score found: " << bestScore << endl;
-        savedSolution = bestSolution;
     }
 
-    Solution generateRandomSolution() {
-        Solution solution;
-        PizzeriaInstance pizzeriaInstance(pizzeria);
-        pizzeriaInstance.Shuffle();
+    Solution *generateRandomSolution() {
+        Solution *solution = new Solution(&world);
 
-        while (pizzeriaInstance.IsDeliveryPossible()) {
-            const int maxRandom = min(int(pizzeriaInstance.availablePizzas.size()) - 2, 2) + 1;
-            const int teamSize = rand() % maxRandom + 2;
+        for (auto &intersection : world.map.intersections) {
+            LightCycle lightCycle;
+            lightCycle.intersection = intersection;
 
-            if (pizzeriaInstance.remainingTeam[teamSize] > 0) {
-                pizzeriaInstance.remainingTeam[teamSize]--;
-                LightCycle delivery;
-                delivery.teamSize = teamSize;
-
-                for (int i = 0; i < teamSize; i++) {
-                    delivery.pizzas.push_back(pizzeriaInstance.availablePizzas.back());
-                    pizzeriaInstance.availablePizzas.pop_back();
-                }
-
-                solution.deliveries.push_back(delivery);
+            for (auto &street: intersection->inStreets) {
+                LightTime lightTime{};
+                lightTime.duration = 1;
+                lightTime.street = street;
+                lightCycle.lightTimes.push_back(lightTime);
             }
+
+            solution->lightCycles.push_back(lightCycle);
         }
 
         return solution;
     }
 };
- */
