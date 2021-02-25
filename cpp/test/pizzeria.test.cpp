@@ -4,7 +4,7 @@
 TEST(pizzeria, load)
 {
     Pizzeria pizzeria;
-    pizzeria.LoadFromFile("a_example.in");
+    pizzeria.LoadFromFile("a.in");
 
     EXPECT_EQ(pizzeria.teamsNumber[2],1);
     EXPECT_EQ(pizzeria.teamsNumber[3],2);

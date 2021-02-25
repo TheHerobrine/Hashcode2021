@@ -16,7 +16,6 @@ struct Pizzeria {
 
     void LoadFromFile(const string &fileName) {
         cout << "Loading file " << fileName << "..." << endl;
-        string line;
         ifstream inputFile("../../input/" + fileName);
 
         int pizzaNumber = 0;

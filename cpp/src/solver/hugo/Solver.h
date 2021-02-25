@@ -18,14 +18,34 @@ struct Solver {
         pizzeria.LoadFromFile(fileName);
     }
 
+    void LoadSolution(string fileName) {
+        savedSolution.LoadFromFile(fileName, pizzeria);
+    }
+
+    void Improve(string fileName) {
+        int currentScore = savedSolution.getScore();
+
+        int tryNumber = 100000;
+        for (int i = 0; i < tryNumber; i++) {
+            const Solution solution = generateRandomSolution();
+            const int score = solution.getScore();
+
+            if (score > currentScore) {
+                cout << "Found better score: " << score << "(+" << score - currentScore << ")" << endl;
+                currentScore = score;
+                savedSolution = solution;
+                savedSolution.writeSolution(fileName);
+            }
+        }
+    }
+
     void Solve() {
         Solution bestSolution;
         int bestScore = 0;
-        int tryNumber = 100;
+        int tryNumber = 1000;
 
         for (int i = 0; i < tryNumber; i++) {
-            if (i%10 == 0)
-            {
+            if (i % 10 == 0) {
                 cout << "Generating random solution (" << i << "/" << tryNumber << ")" << endl;
             }
 

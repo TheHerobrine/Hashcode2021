@@ -3,7 +3,7 @@
 
 TEST(solver, pizzeriaInstance) {
     Pizzeria pizzeria;
-    pizzeria.LoadFromFile("a_example.in");
+    pizzeria.LoadFromFile("a.in");
 
     PizzeriaInstance pizzeriaInstance(pizzeria);
 
@@ -14,37 +14,20 @@ TEST(solver, pizzeriaInstance) {
     EXPECT_EQ(pizzeriaInstance.availablePizzas[1]->index, pizzeria.pizzas[1]->index);
 }
 
-TEST(solver, solve_a) {
+TEST(solver, solve) {
+    string solutionName = "b";
+
     Solver solver;
-    solver.Load("a_example.in");
+    solver.Load(solutionName + ".in");
     solver.Solve();
-    solver.savedSolution.writeSolution("a_example.out");
+    solver.savedSolution.writeSolution(solutionName + ".out");
 }
 
-TEST(solver, solve_b) {
-    Solver solver;
-    solver.Load("b_little_bit_of_everything.in");
-    solver.Solve();
-    solver.savedSolution.writeSolution("b_little_bit_of_everything.out");
-}
+TEST(solver, improve) {
+    string solutionName = "e";
 
-TEST(solver, solve_c) {
     Solver solver;
-    solver.Load("c_many_ingredients.in");
-    solver.Solve();
-    solver.savedSolution.writeSolution("c_many_ingredients.out");
-}
-
-TEST(solver, solve_d) {
-    Solver solver;
-    solver.Load("d_many_pizzas.in");
-    solver.Solve();
-    solver.savedSolution.writeSolution("d_many_pizzas.out");
-}
-
-TEST(solver, solve_e) {
-    Solver solver;
-    solver.Load("e_many_teams.in");
-    solver.Solve();
-    solver.savedSolution.writeSolution("e_many_teams.out");
+    solver.Load(solutionName + ".in");
+    solver.LoadSolution(solutionName + ".out");
+    solver.Improve(solutionName + ".out");
 }

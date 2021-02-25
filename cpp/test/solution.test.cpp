@@ -4,7 +4,7 @@
 
 TEST(solution, write) {
     Pizzeria pizzeria;
-    pizzeria.LoadFromFile("a_example.in");
+    pizzeria.LoadFromFile("a.in");
 
     Solution solution;
 
@@ -25,12 +25,12 @@ TEST(solution, write) {
         solution.deliveries.push_back(delivery);
     }
 
-    solution.writeSolution("a_example_test.out");
+    solution.writeSolution("a_test.out");
 }
 
 TEST(solution, score) {
     Pizzeria pizzeria;
-    pizzeria.LoadFromFile("a_example.in");
+    pizzeria.LoadFromFile("a.in");
 
     Solution solution;
 
@@ -52,4 +52,12 @@ TEST(solution, score) {
     }
 
     EXPECT_EQ(solution.getScore(), 65);
+}
+
+TEST(solver, loadSolution) {
+    Pizzeria pizzeria;
+    pizzeria.LoadFromFile("b.in");
+
+    Solution solution;
+    solution.LoadFromFile("b.out", pizzeria);
 }

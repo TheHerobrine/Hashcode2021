@@ -24,8 +24,7 @@ struct Solution {
 
             for (auto &pizza : delivery.pizzas) {
                 for (auto &ingredient : pizza->ingredients) {
-                    if (ingredient->deliveryUsed != deliveryNumber)
-                    {
+                    if (ingredient->deliveryUsed != deliveryNumber) {
                         ingredient->deliveryUsed = deliveryNumber;
                         ingredientsNumber++;
                     }
@@ -62,5 +61,31 @@ struct Solution {
 
         outputFile.close();
         cout << "File saved!" << endl;
+    }
+
+    void LoadFromFile(const string &fileName, const Pizzeria &pizzeria) {
+        cout << "Loading solution file " << fileName << "..." << endl;
+        ifstream inputFile("../../output/" + fileName);
+
+        int deliveryNumber = 0;
+
+        inputFile >> deliveryNumber;
+
+        for (int i = 0; i < deliveryNumber; i++) {
+            Delivery delivery;
+            inputFile >> delivery.teamSize;
+
+            for (int j = 0; j < delivery.teamSize; j++) {
+                int pizzaIndex;
+                inputFile >> pizzaIndex;
+
+                delivery.pizzas.push_back(pizzeria.pizzas[pizzaIndex]);
+            }
+
+            deliveries.push_back(delivery);
+        }
+
+        inputFile.close();
+        cout << "Solution file loaded! (score:" << getScore() << ")" << endl;
     }
 };
