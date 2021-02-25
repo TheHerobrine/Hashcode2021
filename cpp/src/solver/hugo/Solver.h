@@ -1,5 +1,5 @@
 #pragma once
-
+/*
 #include <iostream>
 #include <algorithm>
 
@@ -73,7 +73,7 @@ struct Solver {
 
             if (pizzeriaInstance.remainingTeam[teamSize] > 0) {
                 pizzeriaInstance.remainingTeam[teamSize]--;
-                Delivery delivery;
+                LightCycle delivery;
                 delivery.teamSize = teamSize;
 
                 for (int i = 0; i < teamSize; i++) {
@@ -88,3 +88,4 @@ struct Solver {
         return solution;
     }
 };
+ */

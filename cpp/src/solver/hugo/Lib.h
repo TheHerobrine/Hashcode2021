@@ -11,7 +11,7 @@ using namespace std;
 
 struct PizzeriaInstance {
     int remainingTeam[5];
-    vector<Pizza*> availablePizzas;
+    vector<Street*> availablePizzas;
 
     PizzeriaInstance(Pizzeria pizzeria) {
         remainingTeam[2] = pizzeria.teamsNumber[2];

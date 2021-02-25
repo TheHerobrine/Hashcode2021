@@ -1,8 +1,9 @@
 add_executable(shell-app
         main.cpp
-        pizzeria/Pizzeria.h
+        world/World.h
+        world/WorldSimulation.h
+        solution/Solution.cpp
         solution/Solution.h
-        solver/hugo/Solver.h
         )
 
 include_directories(

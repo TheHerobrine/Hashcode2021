@@ -1,63 +1,57 @@
 #include <gtest/gtest.h>
-#include "../src/pizzeria/Pizzeria.h"
+#include "../src/world/World.h"
 #include "../src/solution/Solution.h"
 
-TEST(solution, write) {
-    Pizzeria pizzeria;
-    pizzeria.LoadFromFile("a.in");
-
-    Solution solution;
+Solution buildSampleSolution(World *world) {
+    Solution solution(world);
 
     {
-        Delivery delivery;
-        delivery.teamSize = 2;
-        delivery.pizzas.push_back(pizzeria.pizzas[1]);
-        delivery.pizzas.push_back(pizzeria.pizzas[4]);
-        solution.deliveries.push_back(delivery);
+        LightCycle lightCycle;
+        lightCycle.intersection = world->map.intersections[1];
+        lightCycle.lightTimes.push_back(LightTime{
+                world->map.streets["rue-d-athenes"],
+                2
+        });
+        lightCycle.lightTimes.push_back(LightTime{
+                world->map.streets["rue-d-amsterdam"],
+                1
+        });
+
+        solution.lightCycles.push_back(lightCycle);
     }
 
     {
-        Delivery delivery;
-        delivery.teamSize = 3;
-        delivery.pizzas.push_back(pizzeria.pizzas[0]);
-        delivery.pizzas.push_back(pizzeria.pizzas[2]);
-        delivery.pizzas.push_back(pizzeria.pizzas[3]);
-        solution.deliveries.push_back(delivery);
+        LightCycle lightCycle;
+        lightCycle.intersection = world->map.intersections[0];
+        lightCycle.lightTimes.push_back(LightTime{
+                world->map.streets["rue-de-londres"],
+                2
+        });
+
+        solution.lightCycles.push_back(lightCycle);
     }
+
+    {
+        LightCycle lightCycle;
+        lightCycle.intersection = world->map.intersections[2];
+        lightCycle.lightTimes.push_back(LightTime{
+                world->map.streets["rue-de-moscou"],
+                1
+        });
+
+        solution.lightCycles.push_back(lightCycle);
+    }
+
+    return solution;
+}
+
+TEST(solution, save) {
+    World world;
+    world.LoadFromFile("a.txt");
+
+    Solution solution = buildSampleSolution(&world);
+
+    EXPECT_EQ(solution.getScore(), 1002);
 
     solution.writeSolution("a_test.out");
-}
-
-TEST(solution, score) {
-    Pizzeria pizzeria;
-    pizzeria.LoadFromFile("a.in");
-
-    Solution solution;
-
-    {
-        Delivery delivery;
-        delivery.teamSize = 2;
-        delivery.pizzas.push_back(pizzeria.pizzas[1]);
-        delivery.pizzas.push_back(pizzeria.pizzas[4]);
-        solution.deliveries.push_back(delivery);
-    }
-
-    {
-        Delivery delivery;
-        delivery.teamSize = 3;
-        delivery.pizzas.push_back(pizzeria.pizzas[0]);
-        delivery.pizzas.push_back(pizzeria.pizzas[2]);
-        delivery.pizzas.push_back(pizzeria.pizzas[3]);
-        solution.deliveries.push_back(delivery);
-    }
-
-    EXPECT_EQ(solution.getScore(), 65);
-}
-
-TEST(solver, loadSolution) {
-    Pizzeria pizzeria;
-    pizzeria.LoadFromFile("b.in");
-
-    Solution solution;
-    solution.LoadFromFile("b.out", pizzeria);
 }

@@ -5,36 +5,24 @@
 #include <vector>
 #include <filesystem>
 
-#include "./Delivery.h"
+#include "./LightCycle.h"
+#include "../world/WorldSimulation.h"
 
 using namespace std;
 namespace fs = std::filesystem;
 
 struct Solution {
-    vector<Delivery> deliveries;
+    World *world;
+    vector<LightCycle> lightCycles;
 
-    int getScore() const {
-        int score = 0;
-        int deliveryNumber = 0;
+    Solution(World *world) {
+        this->world = world;
+    }
 
-        for (auto &delivery : deliveries) {
-            deliveryNumber++;
+    int getScore() {
+        WorldSimulation simulation(world, lightCycles);
 
-            int ingredientsNumber = 0;
-
-            for (auto &pizza : delivery.pizzas) {
-                for (auto &ingredient : pizza->ingredients) {
-                    if (ingredient->deliveryUsed != deliveryNumber) {
-                        ingredient->deliveryUsed = deliveryNumber;
-                        ingredientsNumber++;
-                    }
-                }
-            }
-
-            score += ingredientsNumber * ingredientsNumber;
-        }
-
-        return score;
+        return 0;
     }
 
     void writeSolution(string fileName) const {
@@ -45,45 +33,27 @@ struct Solution {
         fs::remove(outputPath + fileName);
         ofstream outputFile(outputPath + fileName);
 
-        const int numberOfDelivery = deliveries.size();
+        const int numberOfIntersections = lightCycles.size();
 
-        outputFile << numberOfDelivery << endl;
+        outputFile << numberOfIntersections << endl;
 
-        for (auto &delivery : deliveries) {
-            outputFile << delivery.teamSize;
+        for (auto &lightCycle : lightCycles) {
+            outputFile << lightCycle.intersection->index << endl;
+            outputFile << lightCycle.lightTimes.size() << endl;
 
-            for (auto &pizza : delivery.pizzas) {
-                outputFile << " " << pizza->index;
+            for (auto &lightTime : lightCycle.lightTimes) {
+                outputFile << lightTime.street->name << " " << lightTime.duration << endl;
             }
-
-            outputFile << endl;
         }
 
         outputFile.close();
         cout << "File saved!" << endl;
     }
 
-    void LoadFromFile(const string &fileName, const Pizzeria &pizzeria) {
+    void LoadFromFile(const string &fileName, const World &world) {
         cout << "Loading solution file " << fileName << "..." << endl;
         ifstream inputFile("../../output/" + fileName);
 
-        int deliveryNumber = 0;
-
-        inputFile >> deliveryNumber;
-
-        for (int i = 0; i < deliveryNumber; i++) {
-            Delivery delivery;
-            inputFile >> delivery.teamSize;
-
-            for (int j = 0; j < delivery.teamSize; j++) {
-                int pizzaIndex;
-                inputFile >> pizzaIndex;
-
-                delivery.pizzas.push_back(pizzeria.pizzas[pizzaIndex]);
-            }
-
-            deliveries.push_back(delivery);
-        }
 
         inputFile.close();
         cout << "Solution file loaded! (score:" << getScore() << ")" << endl;

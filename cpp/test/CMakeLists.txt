@@ -1,8 +1,8 @@
 add_executable(
         cpp-test
         main.cpp
-        pizzeria.test.cpp
         solution.test.cpp
+        world.test.cpp
         hugo/solver.test.cpp
 )
 

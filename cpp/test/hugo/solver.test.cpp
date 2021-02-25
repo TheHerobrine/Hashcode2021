@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+/*
 #include "../../src/solver/hugo/Solver.h"
 
 TEST(solver, pizzeriaInstance) {
@@ -31,3 +32,4 @@ TEST(solver, improve) {
     solver.LoadSolution(solutionName + ".out");
     solver.Improve(solutionName + ".out");
 }
+ */
