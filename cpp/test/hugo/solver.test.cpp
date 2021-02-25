@@ -12,12 +12,13 @@ void solve(string solutionName)
 
 
 TEST(solver, solve) {
-    solve("a");
     solve("b");
-    solve("c");
-    solve("d");
-    solve("e");
-    solve("f");
+    //solve("a");
+    //solve("b");
+    //solve("c");
+    //solve("d");
+    //solve("e");
+    //solve("f");
 }
 
 /*

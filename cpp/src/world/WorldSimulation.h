@@ -97,6 +97,10 @@ struct WorldSimulation {
             simulatedStreets[street->index]->carQueue.pop();
 
             simulatedCar->pathIndex++;
+            if (simulatedCar->pathIndex >= simulatedCar->car->path.size())
+            {
+                continue;
+            }
             simulatedCar->position.simulatedStreet = simulatedStreets[simulatedCar->car->path[simulatedCar->pathIndex]->index];
             simulatedCar->position.timeToEnd = simulatedCar->car->path[simulatedCar->pathIndex]->length;
         }

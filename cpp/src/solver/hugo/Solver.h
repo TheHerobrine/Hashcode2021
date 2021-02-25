@@ -40,29 +40,24 @@ struct Solver {
 */
 
     void Solve() {
-        savedSolution = generateRandomSolution();
-        return;
         int bestScore = 0;
         int tryNumber = 10;
 
         for (int i = 0; i < tryNumber; i++) {
-            if (i % 10 == 0) {
-                cout << "Generating random solution (" << i << "/" << tryNumber << ")" << endl;
-            }
+            cout << "Generating random solution (" << i << "/" << tryNumber << ")" << endl;
 
             Solution *solution = generateRandomSolution();
             int score = solution->getScore();
 
             if (score > bestScore) {
                 bestScore = score;
-                delete savedSolution;
+                cout << "Best score found: " << bestScore << endl;
+                //delete savedSolution;
                 savedSolution = solution;
             } else {
-                delete solution;
+                //delete solution;
             }
         }
-
-        cout << "Best score found: " << bestScore << endl;
     }
 
     Solution *generateRandomSolution() {
@@ -74,7 +69,7 @@ struct Solver {
 
             for (auto &street: intersection->inStreets) {
                 LightTime lightTime{};
-                lightTime.duration = 1;
+                lightTime.duration = rand() % 5 + 1;
                 lightTime.street = street;
                 lightCycle.lightTimes.push_back(lightTime);
             }
